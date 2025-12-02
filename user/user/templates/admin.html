@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="{% static '/styles.css' %}">
+</head>
+<body>
+    <h1>Admin Page</h1>
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th>
+            <th>State<th>
+            <th>Country</th>
+            <th>Profile Picture</th>
+            <th>Video Resume</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.dob }}</td>
+            <td>{{ user.state }}</td>
+            <td>{{ user.country }}</td>
+            <td><img src="{{ user.profilepicture.url }}" alt="Image"></td>
+            <td><video src="{{ user.videoresume.url }}" controls></video></td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,32 +1,91 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Form</title>
-    <link rel="stylesheet" href="{% static '/styles.css' %}">
-</head>
-<body>
-        <h1>User Form</h1>
-        <form id="userForm" method="post" enctype="multipart/form-data">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Form</title>
+        <link rel="stylesheet" href="{% static 'user/styles.css' %}">
+    </head>
+    <body>
             {% csrf_token %}
-            <label for ="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" required><br><br>
-            <label for ="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" required><br><br>
-            <label for = "dob">Date of Birth:</label>
-            <input type="date" id="dob" name="dob" required><br><br>
-            <label for = "state">State:</label>
-            <input type="text" id="state" name="state" required><br><br>
-            <label for = "country">Country:</label>
-            <input type="text" id="country" name="country" required><br><br>
-            <label for = "profile_picture">Profile Picture:</label>
-            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required><br><br>
-            <label for ="video_resume">Video Resume:</label>
-            <input type="file" id="video_resume" name="video_resume" accept="video/*" required><br><br>
-            <button id="submit-Btn">Submit</button>
+                    {% comment %} <div class="form-grid"> {% endcomment %}
+            <div class="container">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h1>User Form</h1>
+                        <div class="form-sub">Share your details and attach a profile picture and video resume.</div>
+                    </div>
+                    <div id="static-warning" style="display:none;padding:10px;border-radius:6px;margin-bottom:12px;background:#ffe6e6;color:#8b0000;">
+                        Warning: static files (CSS or JS) may not be loading — try a hard refresh (Ctrl+F5).
+                    </div>
+                    <form id="userForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" id="first_name" name="first_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" name="dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="text" id="state" name="state" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <input type="text" id="country" name="country" required>
+                            </div>
+                            <div class="form-group files-row">
+                                <div class="file-preview">
+                                    <label for="profile_picture">Profile Picture</label>
+                                    <img id="profilePreview" src="" alt="preview" />
+                                </div>
+                                <div style="flex:1">
+                                    <label for="profile_picture">Choose profile image</label>
+                                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label id="videoLabel" for="video_resume">No video selected</label>
+                                <input type="file" id="video_resume" name="video_resume" accept="video/*">
+                            </div>
+                        </div>
+                        <div class="btn-row">
+                            <button id="submit-btn" class="btn" type="submit">Submit</button>
+                            <button type="reset" class="btn secondary">Reset</button>
+                            <div id="notice" class="notice"></div>
+                        </div>
+        <script src="{% static 'user/script.js' %}"></script>
+                </div>
+            </div>
         </form>
-        <script src="{% static 'script.js' %}"></script>
-</body>
+         <script src="{% static 'user/script.js' %}"></script>
+        <script>
+            // Quick runtime check: if .form-card doesn't have the expected background, CSS likely didn't load
+            (function(){
+                try {
+                    const card = document.querySelector('.form-card');
+                    const warning = document.getElementById('static-warning');
+                    if (!card || !warning) return;
+                    const style = getComputedStyle(card);
+                    const bg = style.backgroundColor || '';
+                    // If bg is transparent or empty, CSS might not be applied
+                    if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') {
+                        warning.style.display = 'block';
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            })();
+        </script>
+    </body>
+            
 </html>
         
