@@ -7,4 +7,4 @@ psycopg2-binary==2.9.7
 packaging==25.0
 sqlparse==0.5.4
 tzdata==2025.2
-waitress==2.2.0
+waitress==3.0.0
